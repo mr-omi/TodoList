@@ -1,0 +1,37 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+    <h1>{{td.name}} List</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for item in td.item_set.all %}
+            {% if item.complete == True %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" name="c{{item.id}}" value="clicked" checked>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="name" value="{{item.name}}">
+                </div>
+            {% elif item.complete == False %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" name="c{{item.id}}" value="clicked">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="name" value="{{item.name}}">
+                </div>
+            {% endif %}
+        {% endfor %}
+        <br>
+       <div class="input-group mb-3">
+           <button class="btn btn-success" type="submit" name="add" value="added">Add</button>
+           <input type="text" class="form-control" name="new_item" placeholder="Enter Item">
+       </div>
+        <button type="submit" name="delete" value="deleted" class="btn btn-danger">Delete</button>
+    </form>
+{% endblock %}

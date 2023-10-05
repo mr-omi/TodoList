@@ -1,0 +1,13 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}Create List{% endblock %}
+
+{% block content %}
+    <h1 style="text-align:center">Create New List</h1>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" name="save" value="saved" class="btn btn-info">Save</button>
+    </form>
+{% endblock %}
